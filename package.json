@@ -62,8 +62,8 @@
 	},
 	"devDependencies": {
 		"@afpia/prettier": "^1.2.0",
-		"@release-it/conventional-changelog": "^10.0.1",
 		"@types/node": "^22.15.30",
+		"conventional-changelog-cli": "^5.0.0",
 		"release-it": "^19.0.3",
 		"typescript": "^5.8.3",
 		"vite": "^6.3.5",
