@@ -30,6 +30,18 @@ export interface RequestOptions extends RequestInit {
 }
 
 /**
+ * Интерфейс для конфигурации Fetcher, который содержит базовый URL, заголовки, параметры и
+ * дополнительные опции запроса.
+ */
+export interface FetcherConfig {
+  baseUrl: string
+  headers?: Record<string, string>
+  params?: TypeSearchParams
+  options?: RequestOptions
+}
+
+
+/**
  * Тип для конфигурации запроса, который может содержать параметры и дополнительные параметры.
  *
  * @template Params - Тип параметров, которые могут быть переданы в запрос.
@@ -75,12 +87,7 @@ export class Fetcher {
 	 * @param {TypeSearchParams} [init.params] - Параметры для поиска.
 	 * @param {RequestOptions} [init.options] - Дополнительные параметры запроса.
 	 */
-	public constructor(init: {
-		baseUrl: string
-		headers?: Record<string, string>
-		params?: TypeSearchParams
-		options?: RequestOptions
-	}) {
+	public constructor(init: FetcherConfig) {
 		this.baseUrl = init.baseUrl
 		this.headers = init.headers
 		this.params = init.params
@@ -93,7 +100,7 @@ export class Fetcher {
 	 * @param {TypeSearchParams} params - Параметры поиска.
 	 * @returns {string} - Строка параметров поиска, начинающаяся с "?".
 	 */
-	private createSearchParams(params: TypeSearchParams) {
+	private createSearchParams(params: TypeSearchParams): string {
 		const searchParams = new URLSearchParams()
 
 		for (const key in { ...this.params, ...params }) {
@@ -129,7 +136,7 @@ export class Fetcher {
 		endpoint: string,
 		method: RequestInit['method'],
 		options: RequestOptions = {}
-	) {
+	): Promise<T> {
 		let url = `${this.baseUrl}/${endpoint}`
 
 		if (options.params) {
@@ -178,7 +185,7 @@ export class Fetcher {
 	public get<T>(
 		endpoint: string,
 		options: Omit<RequestOptions, 'body'> = {}
-	) {
+	): Promise<T> {
 		return this.request<T>(endpoint, 'GET', options)
 	}
 
@@ -195,7 +202,7 @@ export class Fetcher {
 		endpoint: string,
 		body?: Record<string, any>,
 		options: RequestOptions = {}
-	) {
+	): Promise<T> {
 		return this.request<T>(endpoint, 'POST', {
 			...options,
 			headers: {
@@ -219,7 +226,7 @@ export class Fetcher {
 		endpoint: string,
 		body?: Record<string, any>,
 		options: RequestOptions = {}
-	) {
+	): Promise<T> {
 		return this.request<T>(endpoint, 'PUT', {
 			...options,
 			headers: {
@@ -241,7 +248,7 @@ export class Fetcher {
 	public delete<T>(
 		endpoint: string,
 		options: Omit<RequestOptions, 'body'> = {}
-	) {
+	): Promise<T> {
 		return this.request<T>(endpoint, 'DELETE', options)
 	}
 
@@ -270,4 +277,14 @@ export class Fetcher {
 	}
 }
 
-// const fetches = new Fetcher();
+interface FetcherInstance  {
+  Fetcher: typeof Fetcher
+  create: (init: FetcherConfig) => Fetcher;
+}
+
+const fetcher: FetcherInstance = {
+  Fetcher,
+  create: (init) => new Fetcher(init)
+}
+
+export default fetcher;

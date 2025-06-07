@@ -3,6 +3,7 @@
 	"version": "1.0.1",
 	"license": "MIT",
 	"type": "module",
+	"description": "fetcher for Next.js applications",
 	"keywords": [
 		"fetcher",
 		"nextjs"
@@ -35,9 +36,10 @@
 		"README.md"
 	],
 	"release-it": {
+		"increment": "prompt",
 		"$schema": "https://unpkg.com/release-it/schema/release-it.json",
 		"git": {
-			"commitMessage": "chore: 🎭release v${version}",
+			"commitMessage": "chore: release v${version} 🎭",
 			"tagName": "v${version}",
 			"requireUpstream": true,
 			"push": true,
