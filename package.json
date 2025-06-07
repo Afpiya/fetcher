@@ -1,0 +1,74 @@
+{
+	"name": "@afpia/fetcher",
+	"version": "1.0.0",
+	"license": "MIT",
+	"type": "module",
+	"keywords": [
+		"fetcher",
+		"nextjs"
+	],
+	"main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "types": "dist/types/index.d.ts",
+	"publishConfig": {
+    "access": "public"
+  },
+	"private": false,
+	"author": {
+		"name": "Afpia",
+		"url": "https://github.com/Afpia"
+	},
+	"bugs": {
+		"url": "https://github.com/Afpiya/fetcher/issues"
+	},
+	"homepage": "https://github.com/Afpiya/fetcher",
+	"repository": {
+		"url": "https://github.com/Afpiya/fetcher"
+	},
+	"packageManager": "npm@11.2.0",
+	"scripts": {
+		"build": "vite build",
+		"release": "release-it"
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"release-it": {
+		"$schema": "https://unpkg.com/release-it/schema/release-it.json",
+		"git": {
+			"commitMessage": "chore: 🎭release v${version}",
+			"tagName": "v${version}",
+			"requireUpstream": true,
+			"push": true,
+			"pushRepo": "origin",
+			"pushTags": true
+		},
+		"npm": {
+			"publish": true,
+			"pkgRoot": "dist",
+			"ignoreVersion": false
+		},
+		"hooks": {
+			"before:init": [
+				"npm run build"
+			],
+			"after:release": "echo '🎉 Published v${version}!'"
+		},
+		"plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": "angular",
+        "infile": "CHANGELOG.md"
+      }
+    }
+	},
+	"devDependencies": {
+		"@afpia/prettier": "^1.2.0",
+		"@release-it/conventional-changelog": "^10.0.1",
+		"@types/node": "^22.15.30",
+		"release-it": "^19.0.3",
+		"typescript": "^5.8.3",
+		"vite": "^6.3.5",
+		"vite-plugin-dts": "^4.5.4"
+	}
+}
