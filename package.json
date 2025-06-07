@@ -1,6 +1,6 @@
 {
 	"name": "@afpia/fetcher",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"license": "MIT",
 	"type": "module",
 	"keywords": [
@@ -8,11 +8,11 @@
 		"nextjs"
 	],
 	"main": "dist/index.cjs.js",
-  "module": "dist/index.es.js",
-  "types": "dist/types/index.d.ts",
+	"module": "dist/index.es.js",
+	"types": "dist/types/index.d.ts",
 	"publishConfig": {
-    "access": "public"
-  },
+		"access": "public"
+	},
 	"private": false,
 	"author": {
 		"name": "Afpia",
@@ -56,11 +56,11 @@
 			"after:release": "echo '🎉 Published v${version}!'"
 		},
 		"plugins": {
-      "@release-it/conventional-changelog": {
-        "preset": "angular",
-        "infile": "CHANGELOG.md"
-      }
-    }
+			"@release-it/conventional-changelog": {
+				"preset": "angular",
+				"infile": "CHANGELOG.md"
+			}
+		}
 	},
 	"devDependencies": {
 		"@afpia/prettier": "^1.2.0",
